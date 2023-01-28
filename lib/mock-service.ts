@@ -60,6 +60,21 @@ export class CloudworkService {
 
   getWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
     await this.sleep()
+    const work = this.workloads[id]
+
+    if (!work) throw new Error("Workload not found")
+
+    return {
+      work,
+    }
+  }
+
+  getAllWorkloads = async (): Promise<GetAllResponse> => {
+    return { workloads: Object.values(this.workloads) }
+  }
+
+  cancelWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
+    await this.sleep()
 
     const work = this.workloads[id]
     if (!work) throw new Error("Workload not found")
@@ -71,21 +86,6 @@ export class CloudworkService {
     work.status = "CANCELED"
 
     return { work }
-  }
-
-  getAllWorkloads = async (): Promise<GetAllResponse> => {
-    return { workloads: Object.values(this.workloads) }
-  }
-
-  cancelWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
-    await this.sleep()
-    const work = this.workloads[id]
-
-    if (!work) throw new Error("Workload not found")
-
-    return {
-      work,
-    }
   }
 }
 
