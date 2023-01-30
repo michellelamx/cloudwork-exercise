@@ -11,12 +11,13 @@ import type {
   WorkStatus,
 } from "./types"
 
-interface InternalWork extends Work {
+interface Workload {
+  work: Work
   timer: NodeJS.Timeout
 }
 
 export class CloudworkService {
-  private workloads: Record<WorkId, InternalWork> = {}
+  private workloads: Record<WorkId, Workload> = {}
   private failCounter = 0
 
   private sleep = (durationMs = 500) =>
@@ -33,11 +34,6 @@ export class CloudworkService {
     const seconds = complexity * 1000
     const completeDate = moment().add(complexity, "second").toDate()
 
-    // do the work
-    const timer = setTimeout(() => {
-      work.status = work.id % 2 ? "FAILURE" : "SUCCESS"
-    }, seconds)
-
     // build work object
     const id: WorkId = Object.keys(this.workloads).length + 1
     const status: WorkStatus = "WORKING"
@@ -48,11 +44,17 @@ export class CloudworkService {
       completeDate,
     }
 
+    // do the work
+    const timer = setTimeout(() => {
+      internalWork.work.status = work.id % 2 ? "FAILURE" : "SUCCESS"
+    }, seconds)
+
     // build internal state
-    const internalWork: InternalWork = {
-      ...work,
+    const internalWork: Workload = {
+      work,
       timer,
     }
+
     this.workloads[id] = internalWork
 
     return { work }
@@ -60,32 +62,34 @@ export class CloudworkService {
 
   getWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
     await this.sleep()
-    const work = this.workloads[id]
+    const workload = this.workloads[id]
 
-    if (!work) throw new Error("Workload not found")
+    if (!workload) throw new Error("Workload not found")
 
     return {
-      work,
+      work: workload.work,
     }
   }
 
-  getAllWorkloads = async (): Promise<GetAllResponse> => {
-    return { workloads: Object.values(this.workloads) }
+  getAllWorkloads = async (params?: GetAllRequest): Promise<GetAllResponse> => {
+    return {
+      workloads: Object.values(this.workloads).map((workload) => workload.work),
+    }
   }
 
   cancelWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
     await this.sleep()
 
-    const work = this.workloads[id]
-    if (!work) throw new Error("Workload not found")
+    const workload = this.workloads[id]
+    if (!workload) throw new Error("Workload not found")
 
-    if (work.status !== "WORKING")
+    if (workload.work.status !== "WORKING")
       throw new Error("Workload cannot be canceled")
 
-    clearTimeout(work.timer)
-    work.status = "CANCELED"
+    clearTimeout(workload.timer)
+    workload.work.status = "CANCELED"
 
-    return { work }
+    return { work: workload.work }
   }
 }
 
