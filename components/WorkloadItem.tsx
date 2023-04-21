@@ -1,6 +1,6 @@
 import type { Work } from "@/lib/types"
 import { observer } from "mobx-react-lite"
-import moment from "moment"
+import { format } from "date-fns"
 
 interface WorkloadItemProps {
   work: Work
@@ -18,7 +18,7 @@ export const WorkloadItem = observer<WorkloadItemProps>(
 
         {work.status === "WORKING" && (
           <>
-            <div>Complete date: {moment(work.completeDate).format()}</div>
+            <div>Complete date: {format(work.completeDate, "PPPPpppp")}</div>
             <button onClick={() => onCancel(work)}>Cancel</button>
           </>
         )}
