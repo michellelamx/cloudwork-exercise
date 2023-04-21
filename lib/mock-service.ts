@@ -101,7 +101,7 @@ const initialData: Record<WorkId, Workload> = {
     work: {
       id: 0,
       status: "FAILURE",
-      complexity: 10,
+      complexity: 1,
       completeDate: new Date(),
     },
   },
@@ -110,7 +110,7 @@ const initialData: Record<WorkId, Workload> = {
     work: {
       id: 1,
       status: "SUCCESS",
-      complexity: 10,
+      complexity: 5,
       completeDate: new Date(),
     },
   },
@@ -119,7 +119,7 @@ const initialData: Record<WorkId, Workload> = {
     work: {
       id: 2,
       status: "CANCELED",
-      complexity: 10,
+      complexity: 3,
       completeDate: new Date(),
     },
   },
@@ -128,8 +128,8 @@ const initialData: Record<WorkId, Workload> = {
     work: {
       id: 3,
       status: "WORKING",
-      complexity: 10,
-      completeDate: addSeconds(new Date(), 10),
+      complexity: 7,
+      completeDate: addSeconds(new Date(), 7),
     },
   },
 }
