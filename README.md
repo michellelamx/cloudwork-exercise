@@ -2,15 +2,13 @@
 
 ## The goals of this exercise
 
-The goal of this exercise is to establish the ability to understand a brief and demonstrate skill in writing client-side state management code. We would like participants to respond to this brief by writing us a sample of code. You are not expected to complete all aspects of the brief.
+The goal of this exercise is to establish the ability to understand a brief and demonstrate general web development skills. We would like participants to respond to this brief by writing us a sample of code. You are not expected to complete all aspects of the brief.
 
 This exercise will also provide content for the subsequent technical interview.
 
-We ask that you give this exercise an amount of time that makes sense for your schedule. Ideally this would be a couple of hours with a goal of solving at least one of the basic and one of the advanced problems.
+We ask that you give this exercise an amount of time that makes sense for your schedule. Ideally this would be a couple of hours with a goal of solving 3-4 of the problems described below.
 
 The code patterns and frameworks used in this repo offer a good representation of our existing codebase and the problems we most want help solving. However, please feel free to change anything about the existing code - this exercise should not be a test on a library you have no experience with.
-
-Please make use of the existing unstyled UI components. Spend no time worrying about the visual design of the app.
 
 ## Setting the scene
 
@@ -37,23 +35,21 @@ What’s included:
 - A functional `WorkloadForm` component.
 - An incomplete `AppController` class which is build with Mobx.
 
-Please feel free to continue using Mobx if you have the experience or like the challenge. Otherwise you can replace it with your own patterns and libraries.
-
 ## Problems to solve
 
-Don't feel like you must solve all of these problems. Try and solve at least one of the advanced problems.
+We would like for you to demonstrate a range of web development skills by solving a few different problems.
 
-### Basic
+Don't feel like you must solve all of these problems but please complete at least one from each of the sections.
 
-- Creating a new workload by sending a message to the backend service
-- Handling network errors
-- Displaying a list of workloads
-- Showing the success/failure state of a complete workload
-
-### Advanced
-
-- The ability to cancel a workload only before it is complete
-- Display an updating count-down of the time remaining until a workload completes
+- State management
+  - Wire-up the WorkloadForm component so that users can create workloads
+  - Give users feedback if there was an error when creating a workload
+- Styling
+  - Add responsive layout to make the app fit on any size screen
+  - Style the WorkloadItem and WorkloadList components
+- Interaction
+  - Display an updating count-down of the time remaining until a workload completes
+  - The ability to cancel a workload only before it is complete
 
 ## Getting started with the code
 
