@@ -41,7 +41,7 @@ We would like for you to demonstrate a range of web development skills by solvin
 
 Don't feel like you must solve all of these problems but please complete at least one from each of the sections.
 
-For styling/UI components we use [Chakra UI](https://chakra-ui.com/). Consider using this framework otherwise feel free to use any approach to styling that you feel comfortable with.
+For styling/UI components we use [Chakra UI](https://chakra-ui.com/). Consider using this framework otherwise feel free to use any approach to styling that you‘re comfortable with.
 
 - State management
   - Wire-up the `WorkloadForm` component so that users can create workloads
