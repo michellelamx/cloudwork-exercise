@@ -1,4 +1,4 @@
-import moment from "moment"
+import { addSeconds } from "date-fns"
 import type {
   CancelRequest,
   CancelResponse,
@@ -13,11 +13,11 @@ import type {
 
 interface Workload {
   work: Work
-  timer: NodeJS.Timeout
+  timer: NodeJS.Timeout | undefined
 }
 
 export class CloudworkService {
-  private workloads: Record<WorkId, Workload> = {}
+  private workloads: Record<WorkId, Workload> = initialData
   private failCounter = 0
 
   private sleep = (durationMs = 500) =>
@@ -32,7 +32,7 @@ export class CloudworkService {
 
     // calculate work duration from complexity
     const seconds = complexity * 1000
-    const completeDate = moment().add(complexity, "second").toDate()
+    const completeDate = addSeconds(new Date(), complexity)
 
     // build work object
     const id: WorkId = Object.keys(this.workloads).length + 1
@@ -94,3 +94,42 @@ export class CloudworkService {
 }
 
 export default CloudworkService
+
+const initialData: Record<WorkId, Workload> = {
+  0: {
+    timer: undefined,
+    work: {
+      id: 0,
+      status: "FAILURE",
+      complexity: 1,
+      completeDate: new Date(),
+    },
+  },
+  1: {
+    timer: undefined,
+    work: {
+      id: 1,
+      status: "SUCCESS",
+      complexity: 5,
+      completeDate: new Date(),
+    },
+  },
+  2: {
+    timer: undefined,
+    work: {
+      id: 2,
+      status: "CANCELED",
+      complexity: 3,
+      completeDate: new Date(),
+    },
+  },
+  3: {
+    timer: undefined,
+    work: {
+      id: 3,
+      status: "WORKING",
+      complexity: 7,
+      completeDate: addSeconds(new Date(), 7),
+    },
+  },
+}

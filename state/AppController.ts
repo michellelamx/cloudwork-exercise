@@ -17,41 +17,21 @@ export class AppController {
     return this.fetchedData?.workloads || []
   }
 
-  init = () => {
+  init = async () => {
     // react strict-mode in development calls useEffects twice
     if (this.hasInit) return
     this.hasInit = true
 
     // add some dummy data when app boots to get started
-    this.fetchedData = {
-      workloads: [
-        {
-          id: 0,
-          status: "WORKING",
-          completeDate: new Date(),
-          complexity: 1,
-        },
-        {
-          id: 1,
-          status: "SUCCESS",
-          completeDate: new Date(),
-          complexity: 1,
-        },
-        {
-          id: 2,
-          status: "FAILURE",
-          completeDate: new Date(),
-          complexity: 1,
-        },
-      ],
-    }
+    await this.refresh()
+  }
+
+  private refresh = async () => {
+    this.fetchedData = await this.cloudworkClient.getAllWorkloads()
   }
 
   createWorkload = async (params: CreateRequest) => {
-    console.log("create workload", params)
-
-    // await this.cloudworkClient.create(params)
-    // ...
+    console.log("TODO: create workload", params)
   }
 }
 
