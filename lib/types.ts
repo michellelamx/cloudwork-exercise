@@ -28,7 +28,7 @@ export interface GetResponse {
 export interface GetAllRequest {}
 
 export interface GetAllResponse {
-  workloads: Work[]
+  works: Work[] // work work work
 }
 
 export interface CancelRequest {

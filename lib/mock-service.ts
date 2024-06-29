@@ -11,23 +11,21 @@ import type {
   WorkStatus,
 } from "./types"
 
-interface Workload {
-  work: Work
-  timer: NodeJS.Timeout | undefined
-}
-
-export class CloudworkService {
-  private workloads: Record<WorkId, Workload> = initialData
+/**
+ * This is a pretend backend service.
+ * It offers client-side APIs for a front-end app to use
+ * but instead of actually talking to a backend, it has an internal implementation.
+ */
+export class CloudWorkService {
+  // the "database" which is just an in-memory object.
+  private database: Record<WorkId, DatabaseWorkEntity> = initialData
   private failCounter = 0
-
-  private sleep = (durationMs = 500) =>
-    new Promise((resolve) => setTimeout(resolve, durationMs))
 
   create = async ({ complexity }: CreateRequest): Promise<CreateResponse> => {
     // sleep to act like a network
     await this.sleep()
 
-    // randomly fail 25% of the time
+    // fail 25% of the time
     if (this.failCounter++ % 4 === 0) throw new Error("Random error!")
 
     // calculate work duration from complexity
@@ -35,7 +33,7 @@ export class CloudworkService {
     const completeDate = addSeconds(new Date(), complexity)
 
     // build work object
-    const id: WorkId = Object.keys(this.workloads).length + 1
+    const id: WorkId = Object.keys(this.database).length + 1
     const status: WorkStatus = "WORKING"
     const work: Work = {
       id,
@@ -44,58 +42,68 @@ export class CloudworkService {
       completeDate,
     }
 
-    // do the work
+    // "do" the work
     const timer = setTimeout(() => {
-      internalWork.work.status = work.id % 2 ? "FAILURE" : "SUCCESS"
+      console.log("cloud go brrrrrr")
+      databaseEntity.work.status = work.id % 2 ? "FAILURE" : "SUCCESS"
     }, seconds)
 
     // build internal state
-    const internalWork: Workload = {
+    const databaseEntity: DatabaseWorkEntity = {
       work,
       timer,
     }
 
-    this.workloads[id] = internalWork
+    // update the "database"
+    this.database[id] = databaseEntity
 
     return { work }
   }
 
   getWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
     await this.sleep()
-    const workload = this.workloads[id]
+    const databaseEntity = this.database[id]
 
-    if (!workload) throw new Error("Workload not found")
+    if (!databaseEntity) throw new Error("Workload not found")
 
     return {
-      work: workload.work,
+      work: databaseEntity.work,
     }
   }
 
   getAllWorkloads = async (params?: GetAllRequest): Promise<GetAllResponse> => {
     return {
-      workloads: Object.values(this.workloads).map((workload) => workload.work),
+      works: Object.values(this.database).map((workload) => workload.work),
     }
   }
 
   cancelWorkload = async ({ id }: CancelRequest): Promise<CancelResponse> => {
     await this.sleep()
 
-    const workload = this.workloads[id]
-    if (!workload) throw new Error("Workload not found")
+    const databaseEntity = this.database[id]
+    if (!databaseEntity) throw new Error("Workload not found")
 
-    if (workload.work.status !== "WORKING")
+    if (databaseEntity.work.status !== "WORKING")
       throw new Error("Workload cannot be canceled")
 
-    clearTimeout(workload.timer)
-    workload.work.status = "CANCELED"
+    clearTimeout(databaseEntity.timer)
+    databaseEntity.work.status = "CANCELED"
 
-    return { work: workload.work }
+    return { work: databaseEntity.work }
   }
+
+  private sleep = (durationMs = 500) =>
+    new Promise((resolve) => setTimeout(resolve, durationMs))
 }
 
-export default CloudworkService
+export default CloudWorkService
 
-const initialData: Record<WorkId, Workload> = {
+interface DatabaseWorkEntity {
+  work: Work
+  timer: NodeJS.Timeout | undefined
+}
+
+const initialData: Record<WorkId, DatabaseWorkEntity> = {
   0: {
     timer: undefined,
     work: {
