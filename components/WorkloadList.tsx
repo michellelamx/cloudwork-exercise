@@ -1,12 +1,13 @@
 import type { Work } from "@/lib/types"
-import { observer } from "mobx-react-lite"
 import WorkloadItem from "./WorkloadItem"
 
 interface WorkloadListProps {
   workloads: Work[]
 }
 
-export const WorkloadList = observer<WorkloadListProps>(({ workloads }) => {
+export const WorkloadList = ({ workloads }: WorkloadListProps) => {
+  if (!workloads.length) return <div>No workloads</div>
+
   return (
     <ul>
       {workloads.map((work) => (
@@ -21,6 +22,6 @@ export const WorkloadList = observer<WorkloadListProps>(({ workloads }) => {
       ))}
     </ul>
   )
-})
+}
 
 export default WorkloadList

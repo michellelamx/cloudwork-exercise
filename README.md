@@ -30,10 +30,9 @@ This repo contains some code. Please feel free to change anything you like about
 What’s included:
 
 - A bare bones Next.js app
-- A `MockCloudworkService` class which behaves like a CloudWork backend service. It offers Typescript interfaces of the data the service returns.
-- Some functional but unstyled UI components (don’t worry about making the app look good).
-- A functional `WorkloadForm` component.
-- An incomplete `AppController` class which is build with Mobx.
+- A mock `CloudWorkService` class which behaves like a CloudWork backend service - if it existed. It offers Typescript interfaces of the data the service returns.
+- Some functional but unstyled UI components.
+- A functional `WorkloadForm` component written with [Mobx](https://mobx.js.org).
 
 ## Problems to solve
 
@@ -43,9 +42,12 @@ Don't feel like you must solve all of these problems but please complete at leas
 
 For styling/UI components we use [Chakra UI](https://chakra-ui.com/). Consider using this framework otherwise feel free to use any approach to styling that you‘re comfortable with.
 
+For data fetching we use [`react-query`](https://tanstack.com/query) so consider using that.
+
 - State management
   - Wire-up the `WorkloadForm` component so that users can create workloads
   - Give users feedback if there was an error when creating a workload
+  - Fetch the workloads from the cloud and display the the user.
 - Styling
   - Add responsive layout to lay the app out like the wire-frame but able fit on any size screen
   - Give the `WorkloadItem` and `WorkloadList` components some basic styling to make it more pleasant on the eyes

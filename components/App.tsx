@@ -1,30 +1,26 @@
-import AppController from "@/state/AppController"
-import { observer, useLocalObservable } from "mobx-react-lite"
-import { useEffect } from "react"
+import { observer } from "mobx-react-lite"
 import WorkloadForm from "./WorkloadForm"
 import WorkloadList from "./WorkloadList"
 
 export const App = observer(() => {
-  const app = useLocalObservable(() => {
-    return new AppController()
-  })
-
-  useEffect(() => {
-    app.init()
-  }, [app])
-
   return (
     <div>
       <h1>CloudWork</h1>
       <hr />
       <div>
         <h2>Create workload</h2>
-        <WorkloadForm onSubmit={app.createWorkload} />
+        <WorkloadForm
+          onSubmit={(payload) => {
+            console.log({ payload })
+            window.alert("all your workloads are belong to us")
+            return Promise.reject()
+          }}
+        />
       </div>
       <hr />
       <div>
         <h2>Workloads</h2>
-        <WorkloadList workloads={app.workloads} />
+        <WorkloadList workloads={[]} />
       </div>
     </div>
   )
