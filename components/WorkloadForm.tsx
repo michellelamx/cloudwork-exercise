@@ -1,5 +1,6 @@
-import { makeAutoObservable, runInAction } from "mobx"
-import { observer, useLocalObservable } from "mobx-react-lite"
+import { makeAutoObservable, runInAction } from 'mobx'
+import { observer, useLocalObservable } from 'mobx-react-lite'
+import { Slider } from './primitives/slider'
 
 interface WorkloadFormProps {
   onSubmit: (params: { complexity: number }) => Promise<unknown>
@@ -17,42 +18,37 @@ export const WorkloadForm = observer<WorkloadFormProps>((props) => {
         formController.submit()
       }}
     >
-      <div>
-        <label>
+      <>
+        <div className='form-complexity'>
           Complexity: {formController.complexity}
-          <br />
-          <input
-            value={formController.complexity}
-            onChange={(e) => {
+        </div>
+        <div className='complexity-slider'>
+          <Slider
+            min={1}
+            max={10}
+            step={1}
+            value={[formController.complexity]}
+            onValueChange={(value) => {
               runInAction(() => {
-                formController.complexity = Number(e.target.value)
-              })
+                formController.complexity = value[0];
+              });
             }}
-            type="range"
-            min="1"
-            max="10"
           />
-        </label>
-      </div>
-
-      <div>
-        <button type="submit" disabled={formController.loading}>
-          {formController.loading ? "Starting…" : "Start work"}
-        </button>
-      </div>
+        </div>
+      </>
+      <button className='primary' type='submit' disabled={formController.loading}>
+        {formController.loading ? 'Starting...' : 'Start work'}
+      </button>
     </form>
   )
 })
 
-export default WorkloadForm
-
 class WorkloadFormController {
-  private createWorkload: WorkloadFormProps["onSubmit"]
-
+  private createWorkload: WorkloadFormProps['onSubmit']
   loading = false
   complexity = 1
 
-  constructor(createWorkload: WorkloadFormProps["onSubmit"]) {
+  constructor(createWorkload: WorkloadFormProps['onSubmit']) {
     this.createWorkload = createWorkload
     makeAutoObservable(this)
   }
@@ -76,8 +72,7 @@ class WorkloadFormController {
       await this.createWorkload({ complexity: this.complexity })
       this.reset()
     } catch (error) {
-      window.alert("Failed to submit workload")
-      console.error("Failed to submit workload", error)
+      console.error('Failed to submit workload', error);
     }
     this.endLoading()
   }

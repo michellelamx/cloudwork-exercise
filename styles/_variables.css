@@ -1,0 +1,25 @@
+:root {
+  /* colors */
+  --color-primary: hsl(260, 100%, 48%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-text-primary: hsl(233, 18%, 19%);
+  --color-text-secondary: hsl(227, 6%, 72%);
+  --color-border: hsl(270, 1%, 35%);
+  --color-button-primary: var(--color-primary);
+  --color-button-secondary: hsl(261, 100%, 88%);
+  --color-status-success: hsl(157, 100%, 25%);
+  --color-status-danger: hsl(348, 75%, 48%);
+  --color-status-warning: hsl(27, 100%, 52%);
+  --color-slider-track: hsl(0, 0%, 60%);
+  --color-toast-bg: hsl(315, 15%, 95%);
+  --color-toast-border: hsl(320, 3%, 80%);
+  --color-toast-danger: hsl(348, 75%, 48%);
+  --color-toast-bg-danger: hsl(348, 75%, 95%);
+  --color-toast-success: hsl(157, 100%, 25%);
+  --color-toast-bg-success: hsl(157, 100%, 95%);
+  /* box shadows */
+  --box-shadow-primary: 0 0 1.6rem 0 hsla(0, 0%, 0%, 0.25);
+  --box-shadow-secondary: 0 0 1.4rem 0 hsla(0, 1%, 19%, 0.2);
+  --box-shadow-toast-success: 0 0.4rem 0.8rem -0.4rem hsl(141, 35%, 75%);
+  --box-shadow-toast-danger: 0 0.4rem 0.8rem -0.4rem hsl(357, 100%, 86%);
+}

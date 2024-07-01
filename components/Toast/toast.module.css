@@ -1,0 +1,79 @@
+.toastViewport {
+  bottom: 1.2rem;
+  margin: 0;
+  min-height: 10.2rem;
+  outline: none;
+  position: fixed;
+  right: 4rem;
+  width: 40.8rem;
+  z-index: 200;
+}
+
+.toast {
+  background-color: var(--color-toast-bg);
+  border: 0.1rem solid var(--color-toast-border);
+  border-radius: 0.8rem;
+  box-shadow: var(--box-shadow-primary);
+  gap: 1rem;
+  list-style: none;
+  overflow: hidden;
+  padding: 1.2rem;
+  transition: all 0.3s;
+}
+
+.toastWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.toastClose {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  height: 1.6rem;
+  padding: 0;
+  position: absolute;
+  right: 1.2rem;
+  top: 1.2rem;
+  width: 1.6rem;
+}
+
+.toastContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.toastTitle {
+  color: var(--color-text-primary);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.toastDescription {
+  color: var(--color-text-primary);
+  font-size: 1.4rem;
+  line-height: 1.71;
+  margin-top: 0.4rem;
+}
+
+.toastDanger {
+  background-color: var(--color-toast-bg-danger);
+  border: 0.1rem solid var(--color-toast-danger);
+  box-shadow: var(--box-shadow-toast-danger);
+
+  .toastTitle {
+    color: var(--color-toast-danger);
+  }
+}
+
+.toastSuccess {
+  background-color: var(--color-toast-bg-success);
+  border: 0.1rem solid var(--color-toast-success);
+  box-shadow: var(--box-shadow-toast-success);
+
+  .toastTitle {
+    color: var(--color-toast-success);
+  }
+}

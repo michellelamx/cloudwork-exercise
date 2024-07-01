@@ -1,4 +1,4 @@
-import { addSeconds } from "date-fns"
+import { addSeconds } from 'date-fns'
 import type {
   CancelRequest,
   CancelResponse,
@@ -9,7 +9,7 @@ import type {
   Work,
   WorkId,
   WorkStatus,
-} from "./types"
+} from './types'
 
 /**
  * This is a pretend backend service.
@@ -17,7 +17,7 @@ import type {
  * but instead of actually talking to a backend, it has an internal implementation.
  */
 export class CloudWorkService {
-  // the "database" which is just an in-memory object.
+  // the 'database' which is just an in-memory object.
   private database: Record<WorkId, DatabaseWorkEntity> = initialData
   private failCounter = 0
 
@@ -26,7 +26,7 @@ export class CloudWorkService {
     await this.sleep()
 
     // fail 25% of the time
-    if (this.failCounter++ % 4 === 0) throw new Error("Random error!")
+    if (this.failCounter++ % 4 === 0) throw new Error('Random error!')
 
     // calculate work duration from complexity
     const seconds = complexity * 1000
@@ -34,7 +34,7 @@ export class CloudWorkService {
 
     // build work object
     const id: WorkId = Object.keys(this.database).length + 1
-    const status: WorkStatus = "WORKING"
+    const status: WorkStatus = 'WORKING'
     const work: Work = {
       id,
       complexity,
@@ -42,10 +42,10 @@ export class CloudWorkService {
       completeDate,
     }
 
-    // "do" the work
+    // 'do' the work
     const timer = setTimeout(() => {
-      console.log("cloud go brrrrrr")
-      databaseEntity.work.status = work.id % 2 ? "FAILURE" : "SUCCESS"
+      console.log('cloud go brrrrrr')
+      databaseEntity.work.status = work.id % 2 ? 'FAILURE' : 'SUCCESS'
     }, seconds)
 
     // build internal state
@@ -54,7 +54,7 @@ export class CloudWorkService {
       timer,
     }
 
-    // update the "database"
+    // update the 'database'
     this.database[id] = databaseEntity
 
     return { work }
@@ -64,7 +64,7 @@ export class CloudWorkService {
     await this.sleep()
     const databaseEntity = this.database[id]
 
-    if (!databaseEntity) throw new Error("Workload not found")
+    if (!databaseEntity) throw new Error('Workload not found')
 
     return {
       work: databaseEntity.work,
@@ -81,13 +81,13 @@ export class CloudWorkService {
     await this.sleep()
 
     const databaseEntity = this.database[id]
-    if (!databaseEntity) throw new Error("Workload not found")
+    if (!databaseEntity) throw new Error('Workload not found')
 
-    if (databaseEntity.work.status !== "WORKING")
-      throw new Error("Workload cannot be canceled")
+    if (databaseEntity.work.status !== 'WORKING')
+      throw new Error('Workload cannot be canceled')
 
     clearTimeout(databaseEntity.timer)
-    databaseEntity.work.status = "CANCELED"
+    databaseEntity.work.status = 'CANCELED'
 
     return { work: databaseEntity.work }
   }
@@ -108,7 +108,7 @@ const initialData: Record<WorkId, DatabaseWorkEntity> = {
     timer: undefined,
     work: {
       id: 0,
-      status: "FAILURE",
+      status: 'FAILURE',
       complexity: 1,
       completeDate: new Date(),
     },
@@ -117,7 +117,7 @@ const initialData: Record<WorkId, DatabaseWorkEntity> = {
     timer: undefined,
     work: {
       id: 1,
-      status: "SUCCESS",
+      status: 'SUCCESS',
       complexity: 5,
       completeDate: new Date(),
     },
@@ -126,7 +126,7 @@ const initialData: Record<WorkId, DatabaseWorkEntity> = {
     timer: undefined,
     work: {
       id: 2,
-      status: "CANCELED",
+      status: 'CANCELED',
       complexity: 3,
       completeDate: new Date(),
     },
@@ -135,7 +135,7 @@ const initialData: Record<WorkId, DatabaseWorkEntity> = {
     timer: undefined,
     work: {
       id: 3,
-      status: "WORKING",
+      status: 'WORKING',
       complexity: 7,
       completeDate: addSeconds(new Date(), 7),
     },

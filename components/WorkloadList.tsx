@@ -1,27 +1,34 @@
-import type { Work } from "@/lib/types"
-import WorkloadItem from "./WorkloadItem"
+import type { Work, CancelRequest } from '@/lib/types'
+import { WorkloadItem } from './WorkloadItem'
+import { CloudWorkService } from '../lib/mock-service'
 
 interface WorkloadListProps {
   workloads: Work[]
+  cloudWorkService: CloudWorkService
 }
 
-export const WorkloadList = ({ workloads }: WorkloadListProps) => {
+export const WorkloadList = ({ workloads, cloudWorkService }: WorkloadListProps) => {
   if (!workloads.length) return <div>No workloads</div>
 
+  const handleCancel = async (work: Work) => {
+    const cancelRequest: CancelRequest = { id: work.id }
+    try {
+      await cloudWorkService.cancelWorkload(cancelRequest)
+    } catch (error) {
+      console.error('Failed to cancel workload', error)
+    }
+  }
+
   return (
-    <ul>
+    <div className='workload-items'>
       {workloads.map((work) => (
-        <li key={work.id}>
+        <div key={work.id} className='workload-item'>
           <WorkloadItem
             work={work}
-            onCancel={async (work) => {
-              console.log("Cancel workload", { work })
-            }}
+            onCancel={() => handleCancel(work)}
           />
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
-
-export default WorkloadList

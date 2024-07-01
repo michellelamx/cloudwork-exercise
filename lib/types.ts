@@ -1,4 +1,4 @@
-export type WorkStatus = "WORKING" | "SUCCESS" | "FAILURE" | "CANCELED"
+export type WorkStatus = 'WORKING' | 'SUCCESS' | 'FAILURE' | 'CANCELED'
 
 export type WorkId = number
 

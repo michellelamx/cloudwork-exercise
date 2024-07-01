@@ -1,0 +1,163 @@
+@import './_variables.css';
+@import './_global.css';
+
+.component-container {
+  align-items: center;
+  border: 0.2rem solid var(--color-primary);
+  border-top-left-radius: 1.4rem;
+  border-top-right-radius: 1.4rem;
+  box-shadow: var(--box-shadow-primary);
+  display: flex;
+  flex-direction: column;
+  margin: 2.8rem auto;
+  overflow: clip;
+  overflow-clip-margin: content-box;
+  width: 80%;
+
+  .component-header {
+    align-items: center;
+    background-color: var(--color-primary);
+    display: flex;
+    height: 4rem;
+    padding-inline-start: 1.4rem;
+    width: 100%;
+
+    .notch {
+      background-color: var(--color-white);
+      border-radius: 50%;
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  .workload-container {
+    padding-block: 6rem;
+    max-width: 112rem;
+  }
+
+  .workload-content {
+    display: grid;
+    column-gap: 6rem;
+    grid:
+      'workload-list workload-create' max-content
+      / 1fr 40rem;
+    width: auto;
+  }
+
+  .section-header {
+    margin-block-end: 2.8rem;
+  }
+
+  .workload-list {
+    grid-area: workload-list;
+  }
+
+  .workload-create {
+    border: 0.2rem solid var(--color-primary);
+    border-radius: 0.8rem;
+    box-shadow: var(--box-shadow-secondary);
+    grid-area: workload-create;
+    height: max-content;
+    padding: 2.4rem 4rem;
+    position: relative;
+    top: 6.2rem;
+  }
+
+  .workload-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    .workload-item {
+      align-items: center;
+      border: 0.2rem solid var(--color-primary);
+      border-radius: 0.6rem;
+      box-shadow: var(--box-shadow-secondary);
+      display: flex;
+      height: 14rem;
+      justify-content: space-between;
+      padding: 0 3.4rem 0 2.4rem;
+
+      .workload-info {
+        font-size: 1.6rem;
+        width: 22rem;
+      }
+
+      .complete-date {
+        text-align: right;
+        padding-right: 2.4rem;
+
+        span {
+          font-weight: 600;
+        }
+      }
+
+      .workload-status {
+        font-size: 1.6rem;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+
+      .status-success {
+        color: var(--color-status-success);
+      }
+
+      .status-failure {
+        color: var(--color-status-danger);
+      }
+
+      .status-canceled {
+        color: var(--color-status-warning);
+      }
+    }
+  }
+
+  .form-complexity {
+    font-size: 1.6rem;
+    margin-block-start: 5.6rem;
+  }
+
+  .complexity-slider {
+    margin-block: 2.4rem 4.6rem;
+    width: 100%;
+
+    .slider-root {
+      align-items: center;
+      display: flex;
+      height: 2rem;
+      position: relative;
+      touch-action: none;
+      user-select: none;
+      width: 100%;
+    }
+
+    .slider-track {
+      background-color: var(--color-slider-track);
+      border-radius: 999rem;
+      flex-grow: 1;
+      height: 0.3rem;
+      position: relative;
+    }
+
+    .slider-range {
+      position: absolute;
+      background-color: var(--color-primary);
+      border-radius: 999rem;
+      height: 100%;
+    }
+
+    .slider-thumb {
+      background-color: var(--color-primary);
+      border-radius: 0.4rem;
+      box-shadow: 0 0.2rem 1rem var(--box-shadow-primary);
+      display: block;
+      height: 2rem;
+      width: 1rem;
+
+      &:focus {
+        box-shadow: 0 0 0 0.5rem var(--box-shadow-primary);
+        outline: none;
+      }
+    }
+  }
+}
