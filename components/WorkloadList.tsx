@@ -1,6 +1,7 @@
-import type { Work, CancelRequest } from '@/lib/types'
+import type { CancelRequest, Work } from '@/lib/types'
 import { WorkloadItem } from './WorkloadItem'
-import { CloudWorkService } from '../lib/mock-service'
+import { CloudWorkService } from '@/lib/mock-service'
+import { useToast } from '@/hooks/useToast'
 
 interface WorkloadListProps {
   workloads: Work[]
@@ -8,7 +9,7 @@ interface WorkloadListProps {
 }
 
 export const WorkloadList = ({ workloads, cloudWorkService }: WorkloadListProps) => {
-  if (!workloads.length) return <div>No workloads</div>
+  const { toast } = useToast()
 
   const handleCancel = async (work: Work) => {
     const cancelRequest: CancelRequest = { id: work.id }
@@ -16,19 +17,27 @@ export const WorkloadList = ({ workloads, cloudWorkService }: WorkloadListProps)
       await cloudWorkService.cancelWorkload(cancelRequest)
     } catch (error) {
       console.error('Failed to cancel workload', error)
+      toast({
+        variant: 'danger',
+        title: 'Cancelation failed',
+        description: 'The workload failed to cancel.',
+      })
     }
   }
 
   return (
     <div className='workload-items'>
-      {workloads.map((work) => (
+      {!workloads.length ? (
+        <div className='no-workloads'>No workloads found</div>
+      ) : (
+      workloads.map((work) => (
         <div key={work.id} className='workload-item'>
           <WorkloadItem
             work={work}
             onCancel={() => handleCancel(work)}
           />
         </div>
-      ))}
+      )))}
     </div>
   )
 }

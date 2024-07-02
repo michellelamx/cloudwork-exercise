@@ -1,0 +1,161 @@
+.cloudwork-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+
+  .component-container {
+    display: grid;
+    grid-column: 2 / 12;
+    grid-template-columns: repeat(12, 1fr);
+
+    .component-header {
+      grid-column: 1 / -1;
+    }
+
+    .workload-container {
+      grid-column: 2 / 12;
+      padding-block: 6rem;
+    }
+
+    .workload-content {
+      column-gap: 6rem;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 1fr;
+    }
+
+    .workload-list {
+      grid-column: 1 / 9;
+    }
+
+    .workload-create {
+      grid-column: 9 / 13;
+    }
+
+    .workload-info {
+      max-width: 18rem;
+    }
+  }
+}
+
+@media (width <= 1280px) {
+
+  .cloudwork-container {
+
+    .component-container {
+
+      .workload-content {
+        column-gap: 4rem;
+      }
+
+      .workload-create {
+        padding: 2.4rem;
+      }
+
+      .form-complexity {
+        margin-block-start: 3.2rem;
+      }
+    }
+  }
+}
+
+@media (width <= 1080px) {
+
+  .cloudwork-container {
+
+    .component-container {
+      grid-template-columns: 2.4rem repeat(10, 1fr) 2.4rem;
+
+      .workload-container {
+        padding-block: 4rem;
+      }
+
+      .workload-content {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(2, max-content);
+      }
+
+      .section-header {
+        margin-block-end: 1.6rem;
+      }
+
+      .workload-info {
+        max-width: 18rem;
+      }
+
+      .workload-list {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-block-start: 3.6rem;
+      }
+
+      .workload-create {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        top: 0;
+      }
+    }
+
+    hr {
+      margin: 2.4rem 0 3.6rem;
+    }
+  }
+}
+
+
+@media (width <= 768px) {
+
+  .cloudwork-container {
+
+    .component-container {
+      grid-template-columns: 2.4rem repeat(10, 1fr) 2.4rem;
+
+      .workload-container {
+        padding-block: 2rem;
+      }
+
+      .workload-content {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(2, max-content);
+      }
+
+      .workload-list {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .workload-create {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+    }
+  }
+}
+
+@media (width <= 640px) {
+
+  .cloudwork-container {
+
+    .component-container {
+      grid-template-columns: 2.4rem repeat(10, 1fr) 2.4rem;
+
+      .workload-container {
+        padding-block: 2rem;
+      }
+
+      .workload-content {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(2, max-content);
+      }
+
+      .workload-list {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .workload-create {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+    }
+  }
+}
+

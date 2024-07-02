@@ -1,7 +1,7 @@
 import { WorkloadForm } from './WorkloadForm'
 import { WorkloadList } from './WorkloadList'
-import { useToast } from '../hooks/useToast'
-import { CloudWorkService } from '../lib/mock-service'
+import { useToast } from '@/hooks/useToast'
+import { CloudWorkService } from '@/lib/mock-service'
 import { observer } from 'mobx-react-lite'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 

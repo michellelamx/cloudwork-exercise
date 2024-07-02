@@ -1,5 +1,6 @@
 @import './_variables.css';
 @import './_global.css';
+@import './_layout.css';
 
 .component-container {
   align-items: center;
@@ -7,12 +8,9 @@
   border-top-left-radius: 1.4rem;
   border-top-right-radius: 1.4rem;
   box-shadow: var(--box-shadow-primary);
-  display: flex;
-  flex-direction: column;
-  margin: 2.8rem auto;
+  margin-block: 2.8rem;
   overflow: clip;
   overflow-clip-margin: content-box;
-  width: 80%;
 
   .component-header {
     align-items: center;
@@ -32,31 +30,20 @@
 
   .workload-container {
     padding-block: 6rem;
-    max-width: 112rem;
   }
 
   .workload-content {
     display: grid;
-    column-gap: 6rem;
-    grid:
-      'workload-list workload-create' max-content
-      / 1fr 40rem;
-    width: auto;
   }
 
   .section-header {
     margin-block-end: 2.8rem;
   }
 
-  .workload-list {
-    grid-area: workload-list;
-  }
-
   .workload-create {
     border: 0.2rem solid var(--color-primary);
     border-radius: 0.8rem;
     box-shadow: var(--box-shadow-secondary);
-    grid-area: workload-create;
     height: max-content;
     padding: 2.4rem 4rem;
     position: relative;
@@ -68,22 +55,26 @@
     flex-direction: column;
     gap: 2.4rem;
 
+    .no-workloads {
+      font-size: 2.4rem;
+    }
+
     .workload-item {
       align-items: center;
       border: 0.2rem solid var(--color-primary);
       border-radius: 0.6rem;
       box-shadow: var(--box-shadow-secondary);
-      display: flex;
+      display: grid;
+      grid-template-columns: 16rem 1fr 11rem;
       height: 14rem;
       justify-content: space-between;
-      padding: 0 3.4rem 0 2.4rem;
+      padding: 0 2.4rem;
 
       .workload-info {
         font-size: 1.6rem;
-        width: 22rem;
       }
 
-      .complete-date {
+      .time-remaining {
         text-align: right;
         padding-right: 2.4rem;
 
@@ -95,6 +86,7 @@
       .workload-status {
         font-size: 1.6rem;
         font-weight: 600;
+        text-align: right;
         text-transform: capitalize;
       }
 

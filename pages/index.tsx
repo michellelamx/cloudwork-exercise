@@ -13,7 +13,7 @@ export default function Home() {
         <title>Cable CloudWork</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
-      <main className={inter.className}>
+      <main className={`cloudwork-container ${inter.className}`}>
         <App />
         <Toaster />
       </main>
